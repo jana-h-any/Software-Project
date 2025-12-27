@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="restaurantStyle.css">
+    <meta charset="UTF-8">
+    <title>Restaurant Menu</title>
+</head>
+<body>
+
+
+<header>
+    <div class="logo">BTWEETY</div>
+    <nav class="logged-section">
+        <ul>
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="CHOOOSErES.html">MENU</a></li>
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="cart.html">CART 🛒</a></li>
+            <li class="logout-icon">
+                <a href="#" onclick="logout()">
+                    <img src="assets/icons/wexit.png" alt="Logout">
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+    <nav class="guest-section">
+        <ul >
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="CHOOOSErES.html">MENU</a></li>
+            <li><a href="cart.html">CART 🛒</a></li>
+            <li ><a id="go-register" href="login.html" class="login-btn">LOGIN</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="menu-container" id="menuGrid"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const restaurantId = params.get('id'); 
+async function loadMenu(restaurantId) {
+    try {
+        const res = await fetch(`http://localhost:3000/menuitems?restaurantId=${restaurantId}`);
+        const items = await res.json();
+
+        const container = document.getElementById("menuGrid"); 
+        container.innerHTML = ""; 
+
+        const categories = [...new Set(items.map(item => item.Category))];
+
+        categories.forEach(category => {
+
+            const categoryContainer = document.createElement("div");
+            categoryContainer.classList.add("category-container");
+
+            const sectionTitle = document.createElement("div");
+            sectionTitle.classList.add("section-title");
+            sectionTitle.textContent = category;
+            categoryContainer.appendChild(sectionTitle);
+
+            const grid = document.createElement("div");
+            grid.classList.add("menu-grid");
+            categoryContainer.appendChild(grid);
+
+            items
+                .filter(item => item.Category === category)
+                .forEach(item => grid.appendChild(createCard(item)));
+
+            container.appendChild(categoryContainer);
+        });
+
+    } catch(err){
+        console.error("Error loading menu:", err);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if(restaurantId){
+        loadMenu(restaurantId);
+    } else {
+        console.error("Restaurant ID not found in URL");
+    }
+});
+</script>
+<script src="js file.js"></script>
+</body>
+</html>

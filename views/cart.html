@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BTWEETY - Shopping Cart</title>
+    <link rel="stylesheet" href="cartStyle.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">BTWEETY</div>
+    <nav class="logged-section">
+        <ul>
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="CHOOOSErES.html">MENU</a></li>
+            <li><a href="history.html">HISTORY</a></li>
+            <li><a href="cart.html">CART 🛒</a></li>
+            <li class="logout-icon">
+                <a href="#" onclick="logout()">
+                    <img src="assets/icons/wexit.png" alt="Logout">
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <nav class="guest-section">
+        <ul>
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="CHOOOSErES.html">MENU</a></li>
+            <li><a href="cart.html">CART 🛒</a></li>
+            <li><a id="go-register" href="login.html" class="login-btn">LOGIN</a></li>
+        </ul>
+  
+    </nav>
+
+</header>
+
+<div class="cart-container">
+
+    <table id="cartTable">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+    <div id="addresses-section">
+        <h3>Select Delivery Address</h3>
+        <div id="addresses-list"></div>
+        <button id="add-address-btn">Add New Address</button>
+        <div id="new-address-form" style="display:none; margin-top:10px;">
+            <input type="text" id="fullAddress" placeholder="Full Address" required>
+            <input type="text" id="notes" placeholder="Notes">
+            <button id="save-address-btn">Save Address</button>
+        </div>
+    </div>
+    <br>
+    <div class="total" id="totalPrice">Total: 0 EGP</div>
+    <button class="checkout-btn" onclick="checkout()">Checkout</button>
+</div>
+
+<script src="cart.js"></script>
+<script src="js file.js"></script>
+
+</body>
+</html>
